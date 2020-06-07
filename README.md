@@ -1037,6 +1037,14 @@ new Vue({
 
 未完待续...
 
+npm install   安装依赖
+
+npm run dev 运行
+
+npm run build  打包
+
+npm run build --report  打包大小分析
+
 
 
 
