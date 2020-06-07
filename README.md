@@ -26,7 +26,7 @@
 * webpack: 
 
   file-loader url-loader webpack-dev-server webpack-merge copy-webpack-plugin happypack HardSourceWebpackPlugin 
-  webpack-bundle-analyzer
+  webpack-bundle-analyzer optimize-css-assets-webpack-plugin  portfinder  FriendlyErrorsPlugin
 
 * 其他:
   Echarts,ElementUI,driver.js,vue-count-to等
@@ -63,6 +63,11 @@
 -- 获取本机ip
 
 -- 打包大小分析
+
+-- 压缩css
+
+-- 检查端口是否存在
+
 
 ## 实现步骤
 
@@ -782,6 +787,31 @@ module.exports = {
 
 可选参数：production, development
 
+ps：之前我认为只需要设置mode为production,就不用使用压缩css和js的插件，但结果发现我错了，仔细比较了下，还是要安装的
+
+先安装打包css的：
+
+npm i -D  optimize-css-assets-webpack-plugin  
+
+```
+webpack.prod.js
+
+const optimizeCss = require('optimize-css-assets-webpack-plugin');
+
+plugins:[
+  new optimizeCss({
+      cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
+      cssProcessorOptions: {
+        discardComments: { removeAll: true }
+      },
+      canPrint: true //是否将插件信息打印到控制台
+  })
+]
+```
+
+压缩js和js打包多线程的暂时没有添加，在网上搜有的说不用添加，有的说还是要安装插件，等实际项目中我用完之后再来添加
+
+
 2.缩小搜索范围
 
 ```
@@ -955,36 +985,58 @@ if (process.env.npm_config_report) {
   )
 }
 
+然后 npm run build --report就会弹出一个页面，里面就是打包大小分析
+
+```
+
+10.完整的vue项目（vue-router axios vuex等）
+
+先安装:
+
+`npm i -S vue-router axios vuex `
+
+然后在src里面新建 -> router文件夹 ->新建index.js
+
+```
+index.js
+
+import Vue from "vue"
+import Router from "vue-router"
+
+Vue.use(Router)
+
+export default new Router({
+  mode: 'hash',
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: () => import(/* webpackChunkName: "home" */ "@/views/home"),
+    },
+  ]
+})
+
+main.js
+
+import router from "./router"
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+
+新建views -> Home.vue
+
+随便写点东西，然后npm run dev  这样就完成了一个路由了
+
 ```
 
 
+到这里webpack搭建vue项目就搭建完成了，我们接下来就用这个webpack-vue去写项目
+
+如果觉得有帮助，那就点个 Star 吧~
+
+未完待续...
 
 
-## 项目功能
 
--- 登录/注销
 
--- 动态路由
-
--- 页面权限
-
--- 开发和生产环境
-
--- menu导航菜单
-
--- table表
-
-    -- 固定表头
-    -- 动态表头
-
--- echarts图表
-
-    -- 地图(配合高德api获取行政区边界，点击下钻)
-    -- 饼图
-    -- 柱状图
-    -- 折线图
-    -- 水球图
-
--- vue-count-to 数字滚动
-
--- dirver.js 引导页
