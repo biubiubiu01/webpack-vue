@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')   //这里引入插件
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')      // 复制文件
 const config = require('../vue.config')
+const webpack = require('webpack')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -108,6 +109,10 @@ module.exports = {
           to: path.resolve(__dirname, '../dist')
         }
       ]
+    }),
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery"
     })
   ]
 }
