@@ -1045,6 +1045,8 @@ npm run build  打包
 
 npm run build --report  打包大小分析
 
+npm run test   运行测试
+
 
 
 

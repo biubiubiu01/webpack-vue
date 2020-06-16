@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config build/webpack.dev.js  --open",
     "build": "webpack --config build/webpack.prod.js",
-    "dll": "webpack --config build/webpack.dll.js"
+    "test": "jest --config test/unit/jest.conf.js --coverage"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +15,10 @@
     "@babel/core": "^7.10.2",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "@vue/test-utils": "^1.0.3",
     "autoprefixer": "^9.8.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^4.0.0",
@@ -27,13 +30,16 @@
     "happypack": "^5.0.1",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.0.1",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.2",
+    "sass-resources-loader": "^2.0.3",
     "style-loader": "^1.2.1",
     "url-loader": "^4.1.0",
+    "vue-jest": "^3.0.5",
     "vue-loader": "^15.9.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.11",
@@ -53,6 +59,7 @@
     "element-ui": "^2.13.2",
     "jquery": "^3.5.1",
     "vue": "^2.6.11",
+    "vue-count-to": "^1.0.13",
     "vue-router": "^3.3.2",
     "vuex": "^3.4.0"
   }
