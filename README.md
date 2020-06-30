@@ -914,20 +914,25 @@ webpack.dev.js
 
 const os = require('os')
 devServer:{
-  host:()=>{
-      var netWork = os.networkInterfaces()
-      var ip = ''
-      for (var dev in netWork) {
-          netWork[dev].forEach(function (details) {
-              if (ip === '' && details.family === 'IPv4' && !details.internal) {
-                 ip = details.address
-                 return;
-              }
-          })
-     }
-        return ip || 'localhost'
-   }
+  host:getNetworkIp()
 }
+
+//获取本地ip地址
+function getNetworkIp() {
+  var netWork = os.networkInterfaces()
+  var ip = ''
+  for (var dev in netWork) {
+    netWork[dev].forEach(function (details) {
+      if (ip === '' && details.family === 'IPv4' && !details.internal) {
+        ip = details.address
+        return;
+      }
+    })
+  }
+  return ip || 'localhost'
+}
+
+
 
 ```
 
