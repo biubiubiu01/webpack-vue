@@ -829,12 +829,14 @@ plugins:[
 webpack处理文本，图片,css的时候，由于js单线程的特性，只能一个一个文件的处理,HappyPack可以将这个任务
 分解到多个子线程里面，子线程完毕后会把结果发送到主线程，从而加快打包速度
 
+后来发现这个东西还可以优化项目启动速度,npm run dev的时候相当于给你打包了一份dist，所以这里可以放到webpack.config.js里面，让他运行的速度变得更快
+
 先安装:
 
 `npm i -D happypack`
 
 ```
-webpack.prod.js
+webpack.prod.js  ->  webpack.config.js
 
 const HappyPack = require('happypack')     //单进程转多进程
 const os = require('os')
