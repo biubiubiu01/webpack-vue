@@ -4,6 +4,9 @@ const vueLoaderPlugin = require('vue-loader/lib/plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')      // 复制文件
 const config = require('../vue.config')
 const webpack = require('webpack')
+const HappyPack = require('happypack')     //单进程转多进程
+const os = require('os')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -20,7 +23,6 @@ module.exports = {
   },
   externals: {},
   module: {
-    noParse: /jquery/,
     rules: [
       {
         test: /\.vue$/,
@@ -32,6 +34,12 @@ module.exports = {
             }
           }
         }]
+      },
+      {
+        test: /\.js$/,
+        use: ['happypack/loader?id=happyBabel'],
+        exclude: /node_modules/,
+        include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')]
       },
       {
         test: /\.(jpe?g|png|gif)$/i, //图片文件
@@ -101,6 +109,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html')
     }),
+    new HappyPack({
+      id: 'happyBabel',
+      loaders: ['babel-loader?cacheDirectory'],
+      threadPool: happyThreadPool
+    }),
     new vueLoaderPlugin(),
     new CopyWebpackPlugin({
       patterns: [
@@ -110,9 +123,5 @@ module.exports = {
         }
       ]
     }),
-    new webpack.ProvidePlugin({
-      jQuery: "jquery",
-      $: "jquery"
-    })
   ]
 }

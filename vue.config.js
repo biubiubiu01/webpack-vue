@@ -6,20 +6,12 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const routUrl = 'http://127.0.0.1:8080'
-
 module.exports = {
   publicPath: './',
   dev: {
     host: getNetworkIp(),   //端口号
     port: 8999,
     autoOpen: true,  //自动打开
-    proxyTable: {
-      '/mock': {
-        target: routUrl, //源地址
-        changeOrigin: true //是否跨域
-      }
-    }
   },
   build: {
     productionGzipExtensions: ["js", "css"],  //需要开启g-zip的文件后缀
