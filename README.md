@@ -6,6 +6,8 @@
 
 > webpack-vue是为了熟悉学习webpack运行机制和原理搭建的项目，从0开始一步步搭建,并记录搭建中使用的插件和实际的运用
 
+> vue-antd-admin后台管理系统，有兴趣可以看看：[vue-antd-admin](https://github.com/biubiubiu01/vue-antd-admin)
+
 使用webpack 4.43.0
 
 ## 包含webpack插件和loader
